@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/jdbc
+       http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <context:component-scan base-package="com.isea533.mybatis.service"/>
+
+  <!--hsqldb测试数据库-->
+  <jdbc:embedded-database id="dataSource">
+    <jdbc:script location="classpath:hsqldb.sql"/>
+  </jdbc:embedded-database>
+
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="mapperLocations">
+      <array>
+        <value>classpath:mapper/*.xml</value>
+      </array>
+    </property>
+    <property name="typeAliasesPackage" value="com.isea533.mybatis.model"/>
+    <property name="plugins">
+      <array>
+        <bean class="com.isea533.mybatis.pagehelper.PageHelper">
+          <property name="properties">
+            <value>
+              dialect=hsqldb
+              reasonable=true
+            </value>
+          </property>
+        </bean>
+        <bean class="com.isea533.mybatis.mapperhelper.MapperInterceptor"/>
+      </array>
+    </property>
+  </bean>
+
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="com.isea533.mybatis.mapper"/>
+  </bean>
+
+  <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+    <constructor-arg index="0" ref="sqlSessionFactory"/>
+  </bean>
+
+  <aop:aspectj-autoproxy/>
+
+  <aop:config>
+    <aop:pointcut id="appService" expression="execution(* com.isea533.mybatis.service.*.*Service*(..))"/>
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="appService"/>
+  </aop:config>
+
+  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+      <tx:method name="select*" read-only="true"/>
+      <tx:method name="find*" read-only="true"/>
+      <tx:method name="get*" read-only="true"/>
+      <tx:method name="*"/>
+    </tx:attributes>
+  </tx:advice>
+
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource"/>
+  </bean>
+</beans>
