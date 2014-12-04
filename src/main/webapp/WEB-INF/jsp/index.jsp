@@ -4,8 +4,8 @@
 <html lang="zh">
 <head>
     <title><spring:message code="helloWorld"/></title>
-    <script src="/static/js/jquery/jquery-1.11.1.min.js"></script>
-    <script src="/static/js/ajax.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/jquery/jquery-1.11.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/ajax.js"></script>
     <style>
         html, body {
             margin: 0;
