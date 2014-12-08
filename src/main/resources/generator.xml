@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <classPathEntry location="E:\.m2\repository\mysql\mysql-connector-java\5.1.29\mysql-connector-java-5.1.29.jar" />
+
+  <context id="Mysql" targetRuntime="MyBatis3">
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                    connectionURL="jdbc:mysql://localhost:3306/pagehelper"
+                    userId="pagehelper"
+                    password="pagehelper">
+    </jdbcConnection>
+
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+    <javaModelGenerator targetPackage="com.isea533.mybatis.model" targetProject="${targetProject}"/>
+
+    <sqlMapGenerator targetPackage="com.isea533.mybatis.mapper"  targetProject="${targetProject}"/>
+
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.isea533.mybatis.mapper"  targetProject="${targetProject}"/>
+
+    <table schema="pagehelper" tableName="COUNTRY" domainObjectName="Country2" />
+  </context>
+</generatorConfiguration>

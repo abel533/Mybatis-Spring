@@ -28,6 +28,7 @@
     <property name="mapperLocations">
       <array>
         <value>classpath:mapper/*.xml</value>
+        <value>classpath:com/isea533/mybatis/mapper/*.xml</value>
       </array>
     </property>
     <property name="typeAliasesPackage" value="com.isea533.mybatis.model"/>
