@@ -7,6 +7,7 @@ import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.select.*;
 import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.MappedStatement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +54,8 @@ public class SqlParser implements SqlUtil.Parser {
         return simpleParser.getPageSql(sql);
     }
 
-	public Map setPageParameter(Object parameterObject, BoundSql boundSql, Page page) {
-        return simpleParser.setPageParameter(parameterObject, boundSql, page);
+    public Map setPageParameter(MappedStatement ms, Object parameterObject, BoundSql boundSql, Page page) {
+        return simpleParser.setPageParameter(ms, parameterObject, boundSql, page);
     }
 
     public String parse(String sql) {
@@ -89,9 +90,11 @@ public class SqlParser implements SqlUtil.Parser {
      */
     public void sqlToCount(Select select) {
         SelectBody selectBody = select.getSelectBody();
-        //select中包含参数时在else中处理
-        if (selectBody instanceof PlainSelect &&
-                !selectItemsHashParameters(((PlainSelect) selectBody).getSelectItems())) {
+        // select中包含参数时在else中处理
+        // select中包含group by时在else中处理
+        if (selectBody instanceof PlainSelect
+                && !selectItemsHashParameters(((PlainSelect) selectBody).getSelectItems())
+                && ((PlainSelect) selectBody).getGroupByColumnReferences() == null) {
             ((PlainSelect) selectBody).setSelectItems(COUNT_ITEM);
         } else {
             PlainSelect plainSelect = new PlainSelect();
@@ -218,6 +221,7 @@ public class SqlParser implements SqlUtil.Parser {
         }
         return false;
     }
+
     /**
      * 判断selectItems是否包含参数，有参数的不能去
      *

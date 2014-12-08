@@ -74,11 +74,11 @@ public class SqlUtil {
         return MetaObject.forObject(object, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY);
     }
 
-    private Parser sqlParser;
+    private SqlUtil.Parser sqlParser;
 
     //数据库方言 - 使用枚举限制数据库类型
     public enum Dialect {
-        mysql, oracle, hsqldb, postgresql
+        mysql, mariadb, sqlite, oracle, hsqldb, postgresql
     }
 
     /**
@@ -124,8 +124,8 @@ public class SqlUtil {
      * @param page
      * @return
      */
-    public Map setPageParameter(Object parameterObject, BoundSql boundSql, Page page) {
-        return sqlParser.setPageParameter(parameterObject, boundSql, page);
+    public Map setPageParameter(MappedStatement ms, Object parameterObject, BoundSql boundSql, Page page) {
+        return sqlParser.setPageParameter(ms, parameterObject, boundSql, page);
     }
 
     /**
@@ -160,7 +160,7 @@ public class SqlUtil {
 
         String getPageSql(String sql);
 
-        Map setPageParameter(Object parameterObject, BoundSql boundSql, Page page);
+        Map setPageParameter(MappedStatement ms, Object parameterObject, BoundSql boundSql, Page page);
     }
 
     public static abstract class SimpleParser implements Parser {
@@ -168,6 +168,8 @@ public class SqlUtil {
             Parser parser = null;
             switch (dialect) {
                 case mysql:
+                case mariadb:
+                case sqlite:
                     parser = new MysqlParser();
                     break;
                 case oracle:
@@ -212,7 +214,7 @@ public class SqlUtil {
          */
         public abstract String getPageSql(String sql);
 
-        public Map setPageParameter(Object parameterObject, BoundSql boundSql, Page page) {
+        public Map setPageParameter(MappedStatement ms, Object parameterObject, BoundSql boundSql, Page page) {
             Map paramMap = null;
             if (parameterObject == null) {
                 paramMap = new HashMap();
@@ -220,17 +222,25 @@ public class SqlUtil {
                 paramMap = (Map) parameterObject;
             } else {
                 paramMap = new HashMap();
-                //这里以及下面使用的地方，主要解决一个参数时的问题，例如使用一个参数Country使用id属性时，不这样处理会导致id=Country
-                MetaObject metaObject = forObject(parameterObject);
+                //动态sql时的判断条件不会出现在ParameterMapping中，但是必须有，所以这里需要收集所有的getter属性
+                //TypeHandlerRegistry可以直接处理的会作为一个直接使用的对象进行处理
+                boolean hasTypeHandler = ms.getConfiguration().getTypeHandlerRegistry().hasTypeHandler(parameterObject.getClass());
+                if (!hasTypeHandler) {
+                    MetaObject metaObject = forObject(parameterObject);
+                    for (String name : metaObject.getGetterNames()) {
+                        paramMap.put(name, metaObject.getValue(name));
+                    }
+                }
+                //下面这段方法，主要解决一个常见类型的参数时的问题
                 if (boundSql.getParameterMappings() != null && boundSql.getParameterMappings().size() > 0) {
                     for (ParameterMapping parameterMapping : boundSql.getParameterMappings()) {
                         String name = parameterMapping.getProperty();
                         if (!name.equals(PAGEPARAMETER_FIRST)
-                                && !name.equals(PAGEPARAMETER_SECOND)) {
-                            if (parameterMapping.getJavaType().isAssignableFrom(parameterObject.getClass())) {
+                                && !name.equals(PAGEPARAMETER_SECOND)
+                                && paramMap.get(name) == null) {
+                            if (hasTypeHandler
+                                    || parameterMapping.getJavaType().isAssignableFrom(parameterObject.getClass())) {
                                 paramMap.put(name, parameterObject);
-                            } else {
-                                paramMap.put(name, metaObject.getValue(name));
                             }
                         }
                     }
@@ -244,16 +254,15 @@ public class SqlUtil {
     private static class MysqlParser extends SimpleParser {
         @Override
         public String getPageSql(String sql) {
-            StringBuilder sqlBuilder = new StringBuilder(sql.length() + 40);
-            sqlBuilder.append("select * from (");
+            StringBuilder sqlBuilder = new StringBuilder(sql.length() + 14);
             sqlBuilder.append(sql);
-            sqlBuilder.append(") as tmp_page limit ?,?");
+            sqlBuilder.append(" limit ?,?");
             return sqlBuilder.toString();
         }
 
         @Override
-        public Map setPageParameter(Object parameterObject, BoundSql boundSql, Page page) {
-            Map paramMap = super.setPageParameter(parameterObject, boundSql, page);
+        public Map setPageParameter(MappedStatement ms, Object parameterObject, BoundSql boundSql, Page page) {
+            Map paramMap = super.setPageParameter(ms, parameterObject, boundSql, page);
             paramMap.put(PAGEPARAMETER_FIRST, page.getStartRow());
             paramMap.put(PAGEPARAMETER_SECOND, page.getPageSize());
             return paramMap;
@@ -272,8 +281,8 @@ public class SqlUtil {
         }
 
         @Override
-        public Map setPageParameter(Object parameterObject, BoundSql boundSql, Page page) {
-            Map paramMap = super.setPageParameter(parameterObject, boundSql, page);
+        public Map setPageParameter(MappedStatement ms, Object parameterObject, BoundSql boundSql, Page page) {
+            Map paramMap = super.setPageParameter(ms, parameterObject, boundSql, page);
             paramMap.put(PAGEPARAMETER_FIRST, page.getEndRow());
             paramMap.put(PAGEPARAMETER_SECOND, page.getStartRow());
             return paramMap;
@@ -291,8 +300,8 @@ public class SqlUtil {
         }
 
         @Override
-        public Map setPageParameter(Object parameterObject, BoundSql boundSql, Page page) {
-            Map paramMap = super.setPageParameter(parameterObject, boundSql, page);
+        public Map setPageParameter(MappedStatement ms, Object parameterObject, BoundSql boundSql, Page page) {
+            Map paramMap = super.setPageParameter(ms, parameterObject, boundSql, page);
             paramMap.put(PAGEPARAMETER_FIRST, page.getPageSize());
             paramMap.put(PAGEPARAMETER_SECOND, page.getStartRow());
             return paramMap;
@@ -303,16 +312,15 @@ public class SqlUtil {
     private static class PostgreSQLParser extends SimpleParser {
         @Override
         public String getPageSql(String sql) {
-            StringBuilder sqlBuilder = new StringBuilder(sql.length() + 50);
-            sqlBuilder.append("select * from (");
+            StringBuilder sqlBuilder = new StringBuilder(sql.length() + 14);
             sqlBuilder.append(sql);
-            sqlBuilder.append(") as tmp_page limit ? offset ?");
+            sqlBuilder.append(" limit ? offset ?");
             return sqlBuilder.toString();
         }
 
         @Override
-        public Map setPageParameter(Object parameterObject, BoundSql boundSql, Page page) {
-            Map paramMap = super.setPageParameter(parameterObject, boundSql, page);
+        public Map setPageParameter(MappedStatement ms, Object parameterObject, BoundSql boundSql, Page page) {
+            Map paramMap = super.setPageParameter(ms, parameterObject, boundSql, page);
             paramMap.put(PAGEPARAMETER_FIRST, page.getPageSize());
             paramMap.put(PAGEPARAMETER_SECOND, page.getStartRow());
             return paramMap;
