@@ -1,3 +1,27 @@
+/*
+	The MIT License (MIT)
+
+	Copyright (c) 2014 abel533@gmail.com
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in
+	all copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+	THE SOFTWARE.
+*/
+
 package com.isea533.mybatis.mapperhelper;
 
 import org.apache.ibatis.builder.StaticSqlSource;
@@ -17,25 +41,73 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.apache.ibatis.jdbc.SqlBuilder.*;
 
 /**
  * 处理主要逻辑
+ * <p>项目地址 : <a href="https://github.com/abel533/Mapper" target="_blank">https://github.com/abel533/Mapper</a></p>
  *
  * @author liuzh
  */
 public class MapperHelper {
+
+    /**
+     * IDENTITY的可选值
+     */
+    public enum IdentityDialect {
+        DB2("VALUES IDENTITY_VAL_LOCAL()"),
+        MYSQL("SELECT LAST_INSERT_ID()"),
+        SQLSERVER("SELECT SCOPE_IDENTITY()"),
+        CLOUDSCAPE("VALUES IDENTITY_VAL_LOCAL()"),
+        DERBY("VALUES IDENTITY_VAL_LOCAL()"),
+        HSQLDB("CALL IDENTITY()"),
+        SYBASE("SELECT @@IDENTITY"),
+        DB2_MF("SELECT IDENTITY_VAL_LOCAL() FROM SYSIBM.SYSDUMMY1"),
+        INFORMIX("select dbinfo('sqlca.sqlerrd1') from systables where tabid=1");
+
+        private String identityRetrievalStatement;
+
+        private IdentityDialect(String identityRetrievalStatement) {
+            this.identityRetrievalStatement = identityRetrievalStatement;
+        }
+
+        public String getIdentityRetrievalStatement() {
+            return identityRetrievalStatement;
+        }
+
+        public static IdentityDialect getDatabaseDialect(String database) {
+            IdentityDialect returnValue = null;
+            if ("DB2".equalsIgnoreCase(database)) {
+                returnValue = DB2;
+            } else if ("MySQL".equalsIgnoreCase(database)) {
+                returnValue = MYSQL;
+            } else if ("SqlServer".equalsIgnoreCase(database)) {
+                returnValue = SQLSERVER;
+            } else if ("Cloudscape".equalsIgnoreCase(database)) {
+                returnValue = CLOUDSCAPE;
+            } else if ("Derby".equalsIgnoreCase(database)) {
+                returnValue = DERBY;
+            } else if ("HSQLDB".equalsIgnoreCase(database)) {
+                returnValue = HSQLDB;
+            } else if ("SYBASE".equalsIgnoreCase(database)) {
+                returnValue = SYBASE;
+            } else if ("DB2_MF".equalsIgnoreCase(database)) {
+                returnValue = DB2_MF;
+            } else if ("Informix".equalsIgnoreCase(database)) {
+                returnValue = INFORMIX;
+            }
+            return returnValue;
+        }
+    }
 
     //基础可配置项
     private class Config {
         private String UUID = "";
         private String IDENTITY = "";
         private boolean BEFORE = false;
+        private boolean cameHumpMap = false;
     }
 
     private Config config = new Config();
@@ -45,11 +117,20 @@ public class MapperHelper {
     }
 
     public void setIDENTITY(String IDENTITY) {
-        config.IDENTITY = IDENTITY;
+        IdentityDialect identityDialect = IdentityDialect.getDatabaseDialect(IDENTITY);
+        if (identityDialect != null) {
+            config.IDENTITY = identityDialect.getIdentityRetrievalStatement();
+        } else {
+            config.IDENTITY = IDENTITY;
+        }
     }
 
     public void setBEFORE(String BEFORE) {
         config.BEFORE = "BEFORE".equalsIgnoreCase(BEFORE);
+    }
+
+    public void setCameHumpMap(String cameHumpMap) {
+        config.cameHumpMap = "TRUE".equalsIgnoreCase(cameHumpMap);
     }
 
     private String getUUID() {
@@ -63,11 +144,16 @@ public class MapperHelper {
         if (config.IDENTITY != null && config.IDENTITY.length() > 0) {
             return config.IDENTITY;
         }
-        return "CALL IDENTITY()";
+        //针对mysql的默认值
+        return IdentityDialect.MYSQL.getIdentityRetrievalStatement();
     }
 
     private boolean getBEFORE() {
         return config.BEFORE;
+    }
+
+    public boolean isCameHumpMap() {
+        return config.cameHumpMap;
     }
 
     public static final String DYNAMIC_SQL = "dynamicSQL";
@@ -572,11 +658,11 @@ public class MapperHelper {
         Class<?> entityClass = getSelectReturnType(ms);
         String methodName = getMethodName(ms);
         Object parameterObject = args[1];
-        Map<String, Object> parameterMap = new HashMap<String, Object>();
         //两个通过PK查询的方法用下面的方法处理参数
         if (methodName.equals(METHODS[1]) || methodName.equals(METHODS[6])) {
             TypeHandlerRegistry typeHandlerRegistry = ms.getConfiguration().getTypeHandlerRegistry();
             List<ParameterMapping> parameterMappings = getPrimaryKeyParameterMappings(ms);
+            Map<String, Object> parameterMap = new HashMap<String, Object>();
             for (ParameterMapping parameterMapping : parameterMappings) {
                 if (parameterMapping.getMode() != ParameterMode.OUT) {
                     Object value;
@@ -677,5 +763,93 @@ public class MapperHelper {
         } catch (Exception e) {
             //ignore
         }
+    }
+
+    /**
+     * 处理Key为驼峰式
+     *
+     * @param result
+     * @param ms
+     */
+    public void cameHumpMap(Object result, MappedStatement ms) {
+        ResultMap resultMap = ms.getResultMaps().get(0);
+        Class<?> type = resultMap.getType();
+        //只有有返回值并且type是Map的时候,还不能是嵌套复杂的resultMap,才需要特殊处理
+        if (result instanceof List
+                && ((List) result).size() > 0
+                && Map.class.isAssignableFrom(type)
+                && !resultMap.hasNestedQueries()
+                && !resultMap.hasNestedResultMaps()) {
+            List resultList = (List) result;
+            //1.resultType时
+            if (resultMap.getId().endsWith("-Inline")) {
+                for (Object re : resultList) {
+                    processMap((Map) re);
+                }
+            } else {//2.resultMap时
+                for (Object re : resultList) {
+                    processMap((Map) re, resultMap.getResultMappings());
+                }
+            }
+        }
+    }
+
+    /**
+     * 处理简单对象
+     *
+     * @param map
+     */
+    private void processMap(Map map) {
+        Map cameHumpMap = new HashMap();
+        Iterator<Map.Entry> iterator = map.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry entry = iterator.next();
+            String key = (String) entry.getKey();
+            String cameHumpKey = EntityHelper.underlineToCamelhump(key.toLowerCase());
+            if (!key.equals(cameHumpKey)) {
+                cameHumpMap.put(cameHumpKey, entry.getValue());
+                iterator.remove();
+            }
+        }
+        map.putAll(cameHumpMap);
+    }
+
+    /**
+     * 配置过的属性不做修改
+     *
+     * @param map
+     * @param resultMappings
+     */
+    private void processMap(Map map, List<ResultMapping> resultMappings) {
+        Set<String> propertySet = toPropertySet(resultMappings);
+        Map cameHumpMap = new HashMap();
+        Iterator<Map.Entry> iterator = map.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry entry = iterator.next();
+            String key = (String) entry.getKey();
+            if (propertySet.contains(key)) {
+                continue;
+            }
+            String cameHumpKey = EntityHelper.underlineToCamelhump(key.toLowerCase());
+            if (!key.equals(cameHumpKey)) {
+                cameHumpMap.put(cameHumpKey, entry.getValue());
+                iterator.remove();
+            }
+        }
+        map.putAll(cameHumpMap);
+    }
+
+    /**
+     * 列属性转Set
+     *
+     * @param resultMappings
+     * @return
+     */
+    private Set<String> toPropertySet(List<ResultMapping> resultMappings) {
+        Set<String> propertySet = new HashSet<String>();
+        for (ResultMapping resultMapping : resultMappings) {
+            propertySet.add(resultMapping.getProperty());
+        }
+        return propertySet;
     }
 }
