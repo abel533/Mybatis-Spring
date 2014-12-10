@@ -1,6 +1,29 @@
-package com.isea533.mybatis;
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014 abel533@gmail.com
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 
-import com.isea533.mybatis.mapperhelper.MapperHelper;
+package com.isea533.mybatis.mapperhelper;
+
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -11,13 +34,13 @@ import java.util.Collection;
 import java.util.Properties;
 
 /**
+ * 通用Mapper和Spring集成
+ *
  * @author liuzh
  */
-public class MappperBeanPostProcessor implements BeanPostProcessor {
+public class MapperSpring implements BeanPostProcessor {
 
     private final MapperHelper mapperHelper = new MapperHelper();
-
-    private boolean runed = false;
 
     public void setProperties(Properties properties) {
         String UUID = properties.getProperty("UUID");
@@ -64,7 +87,8 @@ public class MappperBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        if (!runed && bean instanceof SqlSessionTemplate) {
+        //对所有的SqlSessionTemplate进行处理，多数据源情况下仍然有效
+        if (bean instanceof SqlSessionTemplate) {
             SqlSessionTemplate sqlSessionTemplate = (SqlSessionTemplate)bean;
             Collection<MappedStatement> collection = sqlSessionTemplate.getConfiguration().getMappedStatements();
             for (Object object : collection) {
@@ -77,7 +101,6 @@ public class MappperBeanPostProcessor implements BeanPostProcessor {
                     }
                 }
             }
-            runed = true;
         }
         return bean;
     }
