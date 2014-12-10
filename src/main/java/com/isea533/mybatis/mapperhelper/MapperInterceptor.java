@@ -56,28 +56,12 @@ public class MapperInterceptor implements Interceptor {
         if (mapperHelper.isMapperMethod(msId)) {
             //第一次经过处理后，就不会是ProviderSqlSource了，一开始高并发时可能会执行多次，但不影响。以后就不会在执行了
             if (ms.getSqlSource() instanceof ProviderSqlSource) {
-                switch (ms.getSqlCommandType()) {
-                    case SELECT:
-                        mapperHelper.selectSqlSource(ms);
-                        break;
-                    case INSERT:
-                        mapperHelper.insertSqlSource(ms);
-                        break;
-                    case UPDATE:
-                        mapperHelper.updateSqlSource(ms);
-                        break;
-                    case DELETE:
-                        mapperHelper.deleteSqlSource(ms);
-                        break;
-                    default:
-                        throw new UnsupportedOperationException();
-                }
+                mapperHelper.setSqlSource(ms);
             }
-            //只有select和delete通过PK操作时需要处理入参
-            mapperHelper.processParameterObject(ms, objects);
         }
         Object result = invocation.proceed();
         //是否对Map类型的实体处理返回结果，例如USER_NAME=>userName
+        //这个处理使得通用Mapper可以支持Map类型的实体（实体中的字段必须按常规方式定义，否则无法反射获得列）
         if (mapperHelper.isCameHumpMap()) {
             mapperHelper.cameHumpMap(result, ms);
         }
@@ -103,6 +87,10 @@ public class MapperInterceptor implements Interceptor {
         if (IDENTITY != null && IDENTITY.length() > 0) {
             mapperHelper.setIDENTITY(IDENTITY);
         }
+        String seqFormat = properties.getProperty("seqFormat");
+        if (seqFormat != null && seqFormat.length() > 0) {
+            mapperHelper.setSeqFormat(seqFormat);
+        }
         String ORDER = properties.getProperty("ORDER");
         if (ORDER != null && ORDER.length() > 0) {
             mapperHelper.setBEFORE(ORDER);
@@ -110,6 +98,20 @@ public class MapperInterceptor implements Interceptor {
         String cameHumpMap = properties.getProperty("cameHumpMap");
         if (cameHumpMap != null && cameHumpMap.length() > 0) {
             mapperHelper.setCameHumpMap(cameHumpMap);
+        }
+        int mapperCount = 0;
+        String mapper = properties.getProperty("mappers");
+        if (mapper != null && mapper.length() > 0) {
+            String[] mappers = mapper.split(",");
+            for (String mapperClass : mappers) {
+                if (mapperClass.length() > 0) {
+                    mapperHelper.registerMapper(mapperClass);
+                    mapperCount++;
+                }
+            }
+        }
+        if (mapperCount == 0) {
+            throw new RuntimeException("通用Mapper没有配置任何有效的通用接口!");
         }
     }
 }

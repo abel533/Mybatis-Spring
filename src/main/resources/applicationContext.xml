@@ -42,7 +42,13 @@
             </value>
           </property>
         </bean>
-        <bean class="com.isea533.mybatis.mapperhelper.MapperInterceptor"/>
+        <bean class="com.isea533.mybatis.mapperhelper.MapperInterceptor">
+          <property name="properties">
+            <value>
+              mappers=com.isea533.mybatis.mapperhelper.Mapper
+            </value>
+          </property>
+        </bean>
       </array>
     </property>
   </bean>

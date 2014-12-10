@@ -51,7 +51,7 @@ public class DemoService {
 
     public List<Country> selectPage(int pageNum,int pageSize){
         PageHelper.startPage(pageNum, pageSize);
-        return countryMapper.select(new Country());
+        return countryMapper.select(null);
     }
 
     public List<Country2> selectPage2(int pageNum,int pageSize){
