@@ -1,12 +1,8 @@
 package com.isea533.mybatis.service;
 
-import com.isea533.mybatis.mapper.Country2Mapper;
 import com.isea533.mybatis.mapper.CountryMapper;
-import com.isea533.mybatis.mapper.UserInfoMapper;
-import com.isea533.mybatis.mapper.UserLoginMapper;
 import com.isea533.mybatis.model.Country;
 import com.isea533.mybatis.model.Country2;
-import com.isea533.mybatis.model.Country2Example;
 import com.isea533.mybatis.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -20,18 +16,9 @@ import java.util.List;
  * @author liuzh
  */
 @Service
-public class DemoService {
+public class DemoService extends BaseService<Country2> {
     @Autowired
     private CountryMapper countryMapper;
-
-    @Autowired
-    private UserInfoMapper userInfoMapper;
-
-    @Autowired
-    private UserLoginMapper userLoginMapper;
-
-    @Autowired
-    private Country2Mapper country2Mapper;
 
     private JdbcTemplate jdbcTemplate;
 
@@ -56,9 +43,7 @@ public class DemoService {
 
     public List<Country2> selectPage2(int pageNum,int pageSize){
         PageHelper.startPage(pageNum, pageSize);
-        Country2Example country2Example = new Country2Example();
-        country2Example.createCriteria().andIdGreaterThan(100);
-        List<Country2> list = country2Mapper.selectByExample(country2Example);
-        return list;
+        //Spring4支持泛型注入
+        return mapper.select(null);
     }
 }

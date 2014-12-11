@@ -34,6 +34,13 @@
     <property name="typeAliasesPackage" value="com.isea533.mybatis.model"/>
     <property name="plugins">
       <array>
+        <!--<bean class="com.isea533.mybatis.mapperhelper.MapperInterceptor">
+          <property name="properties">
+            <value>
+              mappers=com.isea533.mybatis.mapperhelper.Mapper
+            </value>
+          </property>
+        </bean>-->
         <bean class="com.isea533.mybatis.pagehelper.PageHelper">
           <property name="properties">
             <value>
@@ -47,7 +54,7 @@
   </bean>
 
   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-    <property name="basePackage" value="com.isea533.mybatis.mapper"/>
+    <property name="basePackage" value="com.isea533.mybatis.mapper,com.isea533.mybatis.mapperhelper"/>
   </bean>
 
   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">

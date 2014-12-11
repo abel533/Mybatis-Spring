@@ -59,7 +59,8 @@ public class MapperInterceptor implements Interceptor {
                 mapperHelper.setSqlSource(ms);
             }
         }
-        return invocation.proceed();
+        Object result = invocation.proceed();
+        return result;
     }
 
     @Override
