@@ -1,5 +1,6 @@
 package com.isea533.mybatis.service;
 
+import com.isea533.mybatis.mapper.Country2Mapper;
 import com.isea533.mybatis.mapper.CountryMapper;
 import com.isea533.mybatis.model.Country;
 import com.isea533.mybatis.model.Country2;
@@ -16,9 +17,12 @@ import java.util.List;
  * @author liuzh
  */
 @Service
-public class DemoService extends BaseService<Country2> {
+public class DemoService {
     @Autowired
     private CountryMapper countryMapper;
+
+    @Autowired
+    private Country2Mapper mapper;
 
     private JdbcTemplate jdbcTemplate;
 
