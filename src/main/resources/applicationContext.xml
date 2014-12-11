@@ -74,7 +74,8 @@
     <property name="dataSource" ref="dataSource"/>
   </bean>
   
-  <bean class="com.isea533.mybatis.mapperhelper.MapperHelper" depends-on="sqlSession" init-method="initMapper">
+  <bean class="com.isea533.mybatis.mapperhelper.MapperHelper"
+        depends-on="sqlSession" init-method="initMapper" scope="singleton" lazy-init="false">
     <property name="mappers">
       <array>
         <value>com.isea533.mybatis.mapperhelper.Mapper</value>
