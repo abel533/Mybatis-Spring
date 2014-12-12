@@ -57,7 +57,7 @@
   <aop:aspectj-autoproxy/>
 
   <aop:config>
-    <aop:pointcut id="appService" expression="execution(* com.isea533.mybatis.service.*.*Service*(..))"/>
+    <aop:pointcut id="appService" expression="execution(* com.isea533.mybatis.service..*Service*.*(..))"/>
     <aop:advisor advice-ref="txAdvice" pointcut-ref="appService"/>
   </aop:config>
 
