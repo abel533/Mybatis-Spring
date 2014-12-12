@@ -88,8 +88,6 @@
                 <th><spring:message code="request.url"/></th>
                 <td>
                     <select name="url" id="url">
-                        <option value="test1">test1 - selectByPrimaryKey</option>
-                        <option value="test2">test2 - jdbcTemplate</option>
                         <option value="test3">test3 - Mybatis分页插件PageHelper</option>
                     </select>
                 </td>
