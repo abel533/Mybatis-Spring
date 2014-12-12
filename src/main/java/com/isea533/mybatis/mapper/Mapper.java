@@ -22,8 +22,9 @@
 	THE SOFTWARE.
 */
 
-package com.isea533.mybatis.mapperhelper;
+package com.isea533.mybatis.mapper;
 
+import com.isea533.mybatis.mapperhelper.MapperProvider;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.SelectProvider;
@@ -32,7 +33,8 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import java.util.List;
 
 /**
- * 通用Mapper接口,其他接口继承该接口即可
+ * 通用Mapper接口,其他接口继承该接口即可 - 在Spring4中，该接口可以被扫描
+ *
  * <p>项目地址 : <a href="https://github.com/abel533/Mapper" target="_blank">https://github.com/abel533/Mapper</a></p>
  *
  * @param <T> 不能为空

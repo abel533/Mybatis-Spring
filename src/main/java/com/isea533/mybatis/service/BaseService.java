@@ -1,6 +1,6 @@
 package com.isea533.mybatis.service;
 
-import com.isea533.mybatis.mapperhelper.Mapper;
+import com.isea533.mybatis.mapper.Mapper;
 import com.isea533.mybatis.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

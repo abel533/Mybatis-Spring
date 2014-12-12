@@ -1,6 +1,5 @@
 package com.isea533.mybatis.mapper;
 
-import com.isea533.mybatis.mapperhelper.Mapper;
 import com.isea533.mybatis.model.Country2;
 import com.isea533.mybatis.model.Country2Example;
 import org.apache.ibatis.annotations.Param;

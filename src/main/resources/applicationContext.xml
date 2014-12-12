@@ -47,7 +47,7 @@
   </bean>
 
   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-    <property name="basePackage" value="com.isea533.mybatis.mapper,com.isea533.mybatis.mapperhelper"/>
+    <property name="basePackage" value="com.isea533.mybatis.mapper"/>
   </bean>
 
   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
@@ -78,7 +78,7 @@
         depends-on="sqlSession" init-method="initMapper" scope="singleton" lazy-init="false">
     <property name="mappers">
       <array>
-        <value>com.isea533.mybatis.mapperhelper.Mapper</value>
+        <value>com.isea533.mybatis.mapper.Mapper</value>
       </array>
     </property>
     <property name="sqlSessions" ref="sqlSession"/>
