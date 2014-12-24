@@ -5,6 +5,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/jdbc
@@ -14,9 +15,11 @@
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
   <context:component-scan base-package="com.isea533.mybatis.service"/>
+
+  <context:property-placeholder location="classpath:config.properties"/>
 
   <!--hsqldb测试数据库-->
   <jdbc:embedded-database id="dataSource">
@@ -27,14 +30,14 @@
     <property name="dataSource" ref="dataSource"/>
     <property name="mapperLocations">
       <array>
+        <value>classpath*:${mapper.Mapper}</value>
         <value>classpath:mapper/*.xml</value>
-        <value>classpath:com/isea533/mybatis/mapper/*.xml</value>
       </array>
     </property>
     <property name="typeAliasesPackage" value="com.isea533.mybatis.model"/>
     <property name="plugins">
       <array>
-        <bean class="com.isea533.mybatis.pagehelper.PageHelper">
+        <bean class="com.github.pagehelper.PageHelper">
           <property name="properties">
             <value>
               dialect=hsqldb
@@ -74,11 +77,11 @@
     <property name="dataSource" ref="dataSource"/>
   </bean>
   
-  <bean class="com.isea533.mybatis.mapperhelper.MapperHelper"
+  <bean class="com.github.abel533.mapperhelper.MapperHelper"
         depends-on="sqlSession" init-method="initMapper" scope="singleton" lazy-init="false">
     <property name="mappers">
       <array>
-        <value>com.isea533.mybatis.mapper.Mapper</value>
+        <value>${mapper.Mapper}</value>
       </array>
     </property>
     <property name="sqlSessions" ref="sqlSession"/>

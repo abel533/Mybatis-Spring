@@ -1,6 +1,6 @@
 package com.isea533.mybatis.controller.demo;
 
-import com.isea533.mybatis.model.Country2;
+import com.isea533.mybatis.model.Country;
 import com.isea533.mybatis.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class DemoController {
 
     @ResponseBody
     @RequestMapping("test3")
-    public List<Country2> requestTest7(
+    public List<Country> requestTest7(
             @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize
     ) {

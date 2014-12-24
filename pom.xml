@@ -11,7 +11,21 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <targetProject>${basedir}/src/main/java</targetProject>
+    <!--  MyBatis Generator  -->
+    <!--  Java接口和实体类  -->
+    <targetJavaProject>${basedir}/src/main/java</targetJavaProject>
+    <targetMapperPackage>com.isea533.mybatis.mapper</targetMapperPackage>
+    <targetModelPackage>com.isea533.mybatis.model</targetModelPackage>
+    <!--  XML生成路径  -->
+    <targetResourcesProject>${basedir}/src/main/resources</targetResourcesProject>
+    <targetXMLPackage>mapper</targetXMLPackage>
+    <!--  编译jdk版本  -->
+    <jdk.version>1.6</jdk.version>
+    <!--  依赖版本  -->
+    <mapper.version>1.0.0</mapper.version>
+    <pagehelper.version>3.4.0</pagehelper.version>
+    <mysql.version>5.1.29</mysql.version>
+    <spring.version>4.1.2.RELEASE</spring.version>
   </properties>
 
   <dependencies>
@@ -143,6 +157,11 @@
       <artifactId>hsqldb</artifactId>
       <version>2.2.9</version>
     </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql.version}</version>
+    </dependency>
 
     <!--Mybatis-->
     <dependency>
@@ -160,20 +179,40 @@
       <artifactId>jsqlparser</artifactId>
       <version>0.9.1</version>
     </dependency>
-
+    <!-- Mybatis Generator -->
+    <dependency>
+      <groupId>org.mybatis.generator</groupId>
+      <artifactId>mybatis-generator-core</artifactId>
+      <version>1.3.2</version>
+      <scope>compile</scope>
+      <optional>true</optional>
+    </dependency>
+    <!--分页插件-->
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>3.4.0</version>
+    </dependency>
+    <!--通用Mapper-->
+    <dependency>
+      <groupId>com.github.abel533</groupId>
+      <artifactId>mapper</artifactId>
+      <version>${mapper.version}</version>
+    </dependency>
     <!--JPA-->
     <dependency>
       <groupId>javax.persistence</groupId>
       <artifactId>persistence-api</artifactId>
       <version>1.0</version>
     </dependency>
+
   </dependencies>
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>4.1.2.RELEASE</version>
+        <version>${spring.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -200,13 +239,16 @@
           <include>**/*.xml</include>
         </includes>
       </resource>
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+      </resource>
     </resources>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>${jdk.version}</source>
+          <target>${jdk.version}</target>
         </configuration>
       </plugin>
       <plugin>
@@ -214,10 +256,22 @@
         <artifactId>mybatis-generator-maven-plugin</artifactId>
         <version>1.3.2</version>
         <configuration>
-          <configurationFile>${basedir}/src/main/resources/generator.xml</configurationFile>
+          <configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
           <overwrite>true</overwrite>
           <verbose>true</verbose>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>com.github.abel533</groupId>
+            <artifactId>mapper</artifactId>
+            <version>${mapper.version}</version>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>
