@@ -9,3 +9,6 @@ target/
 .settings/
 .classpath
 .project
+
+# jrebel #
+src/main/resources/rebel.xml
