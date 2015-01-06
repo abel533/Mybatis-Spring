@@ -54,6 +54,7 @@ public class DemoController {
             @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize
     ) {
+        demoService.test();
         return demoService.selectPage(pageNum, pageSize);
     }
 }
