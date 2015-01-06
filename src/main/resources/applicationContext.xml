@@ -41,16 +41,26 @@
 
   <context:property-placeholder location="classpath:config.properties"/>
 
-  <!--  c3p0  -->
-  <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-    <property name="driverClass" value="${jdbc.driverClass}"/>
-    <property name="jdbcUrl" value="${jdbc.url}"/>
-    <property name="user" value="${jdbc.user}"/>
-    <property name="password" value="${jdbc.password}"/>
-    <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>
-    <property name="minPoolSize" value="${jdbc.minPoolSize}"/>
-    <property name="maxStatements" value="${jdbc.maxStatements}"/>
-    <property name="testConnectionOnCheckout" value="${jdbc.testConnection}"/>
+  <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+    <property name="driverClassName" value="${jdbc.driverClass}"/>
+    <property name="url" value="${jdbc.url}" />
+    <property name="username" value="${jdbc.user}"/>
+    <property name="password" value="${jdbc.password}" />
+
+    <property name="filters" value="stat" />
+
+    <property name="maxActive" value="20"/>
+    <property name="initialSize" value="1"/>
+    <property name="maxWait" value="60000"/>
+    <property name="minIdle" value="1"/>
+
+    <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+    <property name="minEvictableIdleTimeMillis" value="300000"/>
+
+    <property name="validationQuery" value="SELECT 'x'"/>
+    <property name="testWhileIdle" value="true"/>
+    <property name="testOnBorrow" value="false"/>
+    <property name="testOnReturn" value="false"/>
   </bean>
 
   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
