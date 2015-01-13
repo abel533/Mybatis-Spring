@@ -186,7 +186,7 @@
     <dependency>
       <groupId>com.github.pagehelper</groupId>
       <artifactId>pagehelper</artifactId>
-      <version>3.4.0</version>
+      <version>3.5.0</version>
     </dependency>
     <!--通用Mapper-->
     <dependency>
