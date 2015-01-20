@@ -169,11 +169,6 @@
       <artifactId>mybatis-spring</artifactId>
       <version>1.2.2</version>
     </dependency>
-    <dependency>
-      <groupId>com.github.jsqlparser</groupId>
-      <artifactId>jsqlparser</artifactId>
-      <version>0.9.1</version>
-    </dependency>
     <!-- Mybatis Generator -->
     <dependency>
       <groupId>org.mybatis.generator</groupId>
@@ -186,7 +181,7 @@
     <dependency>
       <groupId>com.github.pagehelper</groupId>
       <artifactId>pagehelper</artifactId>
-      <version>3.5.0</version>
+      <version>3.5.1</version>
     </dependency>
     <!--通用Mapper-->
     <dependency>
@@ -194,13 +189,6 @@
       <artifactId>mapper</artifactId>
       <version>${mapper.version}</version>
     </dependency>
-    <!--JPA-->
-    <dependency>
-      <groupId>javax.persistence</groupId>
-      <artifactId>persistence-api</artifactId>
-      <version>1.0</version>
-    </dependency>
-
   </dependencies>
   <dependencyManagement>
     <dependencies>
