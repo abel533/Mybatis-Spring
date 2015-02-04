@@ -24,8 +24,10 @@
 
 package com.isea533.mybatis.service;
 
+import com.github.abel533.entity.EntityMapper;
 import com.github.abel533.mapper.Mapper;
 import com.isea533.mybatis.model.Country;
+import com.isea533.mybatis.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,10 +35,13 @@ import org.springframework.stereotype.Service;
  * @author liuzh
  */
 @Service
-public class DemoService extends BaseService<Country>{
+public class DemoService extends BaseService<Country> {
 
     @Autowired
     private Mapper<Country> countryMapper;
+
+    @Autowired
+    private EntityMapper entityMapper;
 
     public int save(Country country) {
         if (country == null) {
@@ -51,9 +56,16 @@ public class DemoService extends BaseService<Country>{
         return super.save(country);
     }
 
-    public void test(){
+    public void test() {
         int result = countryMapper.selectCount(null);
         System.out.println(result);
+    }
+
+    public void testEntityMapper(){
+        Country country = entityMapper.selectByPrimaryKey(Country.class, 100);
+        int count = entityMapper.count(new Country());
+        System.out.println(country.toString());
+        System.out.println(count);
     }
 
 }
