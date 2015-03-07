@@ -12,6 +12,9 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <targetProject>${basedir}/src/main/java</targetProject>
+    <!--  依赖版本  -->
+    <mapper.version>2.0.1</mapper.version>
+    <pagehelper.version>3.6.1</pagehelper.version>
   </properties>
 
   <dependencies>
@@ -99,6 +102,10 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-aop</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+    </dependency>
 
     <!--spring-oxm依赖-->
     <dependency>
@@ -166,6 +173,19 @@
       <groupId>javax.persistence</groupId>
       <artifactId>persistence-api</artifactId>
       <version>1.0</version>
+    </dependency>
+
+    <!--分页插件-->
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>${pagehelper.version}</version>
+    </dependency>
+    <!--通用Mapper-->
+    <dependency>
+      <groupId>com.github.abel533</groupId>
+      <artifactId>mapper</artifactId>
+      <version>${mapper.version}</version>
     </dependency>
   </dependencies>
   <dependencyManagement>
