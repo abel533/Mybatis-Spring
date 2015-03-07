@@ -113,6 +113,10 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-aop</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+    </dependency>
 
     <!--spring-oxm依赖-->
     <dependency>
@@ -202,7 +206,7 @@
     </dependencies>
   </dependencyManagement>
   <repositories>
-    <repository>
+<!--    <repository>
       <id>nexus</id>
       <name>local private nexus</name>
       <url>http://maven.oschina.net/content/groups/public/</url>
@@ -212,7 +216,7 @@
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
-    </repository>
+    </repository>-->
     <repository>
       <id>sonatype-nexus-releases</id>
       <name>Sonatype Nexus Releases</name>
