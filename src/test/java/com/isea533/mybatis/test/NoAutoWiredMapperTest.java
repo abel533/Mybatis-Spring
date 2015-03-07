@@ -10,9 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class NoAutoWiredMapperTest extends BasicTest {
 
-//    @Autowired
-//    private UserInfoMapper userInfoMapper;
-
     @Autowired
     private SqlSession sqlSession;
 

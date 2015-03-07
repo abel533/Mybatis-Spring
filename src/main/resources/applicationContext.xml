@@ -34,6 +34,15 @@
     <property name="typeAliasesPackage" value="com.isea533.mybatis.model"/>
     <property name="plugins">
       <array>
+        <bean class="com.github.abel533.mapperhelper.MapperInterceptor">
+          <property name="properties">
+            <value>
+              mappers=com.github.abel533.mapper.Mapper
+              IDENTITY=MYSQL
+              notEmpty=true
+            </value>
+          </property>
+        </bean>
         <bean class="com.github.pagehelper.PageHelper">
           <property name="properties">
             <value>
@@ -76,22 +85,5 @@
 
   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     <property name="dataSource" ref="dataSource"/>
-  </bean>
-
-  <bean class="com.github.abel533.mapperhelper.MapperHelper"
-        depends-on="sqlSession" init-method="initMapper" scope="singleton" lazy-init="false">
-    <!--通用Mapper接口-->
-    <property name="mappers">
-      <array>
-        <value>com.github.abel533.mapper.Mapper</value>
-      </array>
-    </property>
-    <!--必须注入sqlSession-->
-    <property name="sqlSessions" ref="sqlSession"/>
-    <!--对于一般的getAllIfColumnNode，是否判断!=''，默认不判断-->
-    <!--该参数会影响所有使用getAllIfColumnNode方法的地方-->
-    <!--具体到Mapper<T>,影响3个方法：select,selectCount,delete-->
-    <property name="notEmpty" value="true"/>
-    <property name="IDENTITY" value="MYSQL"/>
   </bean>
 </beans>
