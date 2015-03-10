@@ -22,7 +22,7 @@
     <!--  编译jdk版本  -->
     <jdk.version>1.6</jdk.version>
     <!--  依赖版本  -->
-    <mapper.version>2.0.1</mapper.version>
+    <mapper.version>2.2.0-SNAPSHOT</mapper.version>
     <pagehelper.version>3.6.1</pagehelper.version>
     <mysql.version>5.1.29</mysql.version>
     <spring.version>4.1.2.RELEASE</spring.version>
@@ -206,7 +206,7 @@
     </dependencies>
   </dependencyManagement>
   <repositories>
-<!--    <repository>
+    <repository>
       <id>nexus</id>
       <name>local private nexus</name>
       <url>http://maven.oschina.net/content/groups/public/</url>
@@ -216,11 +216,22 @@
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
-    </repository>-->
+    </repository>
     <repository>
       <id>sonatype-nexus-releases</id>
       <name>Sonatype Nexus Releases</name>
       <url>http://oss.sonatype.org/content/repositories/releases</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>sonatype-nexus-snapshots</id>
+      <name>Sonatype Nexus Snapshots</name>
+      <url>http://oss.sonatype.org/content/repositories/snapshots</url>
       <releases>
         <enabled>false</enabled>
       </releases>

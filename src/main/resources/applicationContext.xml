@@ -102,6 +102,10 @@
     <constructor-arg ref="commonMapper"/>
   </bean>
 
+  <bean id="sqlMapper" class="com.github.abel533.sql.SqlMapper" scope="prototype">
+    <constructor-arg ref="sqlSession"/>
+  </bean>
+
   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
     <constructor-arg index="0" ref="sqlSessionFactory"/>
   </bean>
