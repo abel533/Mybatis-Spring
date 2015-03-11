@@ -20,7 +20,7 @@ public class PageSqlMapperTest extends BasicTest {
     @Test
     public void test(){
         PageHelper.startPage(2,10);
-        List<Country> countries = sqlMapper.select("select * from country",Country.class);
+        List<Country> countries = sqlMapper.selectList("select * from country",Country.class);
         PageInfo<Country> pageInfo = new PageInfo<Country>(countries);
         System.out.println(pageInfo.getTotal());
     }
