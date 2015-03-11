@@ -22,8 +22,8 @@
     <!--  编译jdk版本  -->
     <jdk.version>1.6</jdk.version>
     <!--  依赖版本  -->
-    <mapper.version>2.2.0-SNAPSHOT</mapper.version>
-    <pagehelper.version>3.6.1</pagehelper.version>
+    <mapper.version>2.2.0</mapper.version>
+    <pagehelper.version>3.6.3</pagehelper.version>
     <mysql.version>5.1.29</mysql.version>
     <spring.version>4.1.2.RELEASE</spring.version>
   </properties>
