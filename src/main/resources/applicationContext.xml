@@ -34,20 +34,20 @@
     <property name="typeAliasesPackage" value="com.isea533.mybatis.model"/>
     <property name="plugins">
       <array>
+        <bean class="com.github.pagehelper.PageHelper">
+          <property name="properties">
+            <value>
+              dialect=hsqldb
+              reasonable=true
+            </value>
+          </property>
+        </bean>
         <bean class="com.github.abel533.mapperhelper.MapperInterceptor">
           <property name="properties">
             <value>
               mappers=com.github.abel533.mapper.Mapper
               IDENTITY=MYSQL
               notEmpty=true
-            </value>
-          </property>
-        </bean>
-        <bean class="com.github.pagehelper.PageHelper">
-          <property name="properties">
-            <value>
-              dialect=hsqldb
-              reasonable=true
             </value>
           </property>
         </bean>
