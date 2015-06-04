@@ -150,20 +150,7 @@
     <div>
         <pre>
         ===============================================================================================
-        推荐使用Mybatis分页插件
-        ===============================================================================================
-
-        Mybatis分页插件oschub的项目地址：<a href="http://git.oschina.net/free/Mybatis_PageHelper" target="_blank">http://git.oschina.net/free/Mybatis_PageHelper</a>
-
-        Mybatis分页插件github的项目地址：<a href="https://github.com/pagehelper/Mybatis-PageHelper" target="_blank">https://github.com/pagehelper/Mybatis-PageHelper</a>
-
-        分页插件文档地址：<a href="http://git.oschina.net/free/Mybatis_PageHelper/wikis/home" target="_blank">http://git.oschina.net/free/Mybatis_PageHelper/wikis/home</a>
-
-        Mybatis-Sample（分页插件测试项目）：<a href="http://git.oschina.net/free/Mybatis-Sample" target="_blank">http://git.oschina.net/free/Mybatis-Sample</a>
-
-        Mybatis项目：<a href="https://github.com/mybatis/mybatis-3" target="_blank">https://github.com/mybatis/mybatis-3</a>
-
-        Mybatis文档：<a href="http://mybatis.github.io/mybatis-3/zh/index.html" target="_blank">http://mybatis.github.io/mybatis-3/zh/index.html</a>
+        MyBatis工具：<a href="http://www.mybatis.tk">www.mybatis.tk</a>
 
         Mybatis专栏：
         Mybatis示例：<a href="http://blog.csdn.net/column/details/mybatis-sample.html" target="_blank">http://blog.csdn.net/column/details/mybatis-sample.html</a>
@@ -178,6 +165,7 @@
         作者邮箱： abel533@gmail.com
 
         推荐一个Mybatis的QQ群： 146127540
+        ===============================================================================================
             </pre>
     </div>
 </div>
