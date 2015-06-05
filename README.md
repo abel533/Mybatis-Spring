@@ -1,12 +1,16 @@
 #SSM集成的基础项目，项目使用Maven管理
 
-项目使用Spring3.2.12+SpringMVC3.2.12+Mybatis3.2.8
+#MyBatis3.2.8
+
+#Spring4.1.2.RELEASE
+
+项目使用Spring4.1.2.RELEASE+SpringMVC4.1.2.RELEASE+Mybatis3.2.8
 
 项目集成了Mybatis分页插件和通用Mapper插件
 
 项目使用的hsqldb内存数据库，根据需要可以切换为其他支持的数据库
 
-##推荐使用Mybatis通用Mapper
+##推荐使用Mybatis通用Mapper3
 
 项目地址:https://github.com/abel533/Mapper
 
@@ -17,7 +21,6 @@ Mybatis分页插件oschub的项目地址：http://git.oschina.net/free/Mybatis_P
 Mybatis分页插件github的项目地址：https://github.com/pagehelper/Mybatis-PageHelper
 
 分页插件文档地址：http://git.oschina.net/free/Mybatis_PageHelper/wikis/home
-
 
 ##其他相关信息
 
