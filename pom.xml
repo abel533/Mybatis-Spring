@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <targetProject>${basedir}/src/main/java</targetProject>
         <!--  依赖版本  -->
-        <mapper.version>3.0.0</mapper.version>
+        <mapper.version>3.1.0-SNAPSHOT</mapper.version>
         <pagehelper.version>3.7.4</pagehelper.version>
     </properties>
 
@@ -183,20 +183,9 @@
         </dependency>
         <!--通用Mapper-->
         <dependency>
-            <groupId>com.github.abel533</groupId>
+            <groupId>tk.mybatis</groupId>
             <artifactId>mapper</artifactId>
             <version>${mapper.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.abel533</groupId>
-            <artifactId>entitymapper</artifactId>
-            <version>1.0.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.github.abel533</groupId>
-                    <artifactId>mapper</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
     <dependencyManagement>
