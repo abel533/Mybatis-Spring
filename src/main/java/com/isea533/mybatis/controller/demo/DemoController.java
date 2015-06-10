@@ -55,7 +55,6 @@ public class DemoController {
             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize
     ) {
         demoService.test();
-        demoService.testEntityMapper();
         return demoService.selectPage(pageNum, pageSize);
     }
 }

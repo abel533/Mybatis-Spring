@@ -24,8 +24,7 @@
 
 package com.isea533.mybatis.test;
 
-import com.github.abel533.entity.EntityMapper;
-import com.github.abel533.entity.Example;
+import tk.mybatis.mapper.entity.Example;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.isea533.mybatis.mapper.CountryMapper;

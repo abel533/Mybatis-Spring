@@ -76,12 +76,12 @@
         <bean class="com.github.pagehelper.PageHelper">
           <property name="properties">
             <value>
-              dialect=hsqldb
+              dialect=mysql
               reasonable=true
             </value>
           </property>
         </bean>
-        <bean class="com.github.abel533.mapperhelper.MapperInterceptor">
+        <bean class="tk.mybatis.mapper.mapperhelper.MapperInterceptor">
           <property name="properties">
             <value>
               mappers=com.github.abel533.mapper.Mapper
@@ -96,14 +96,6 @@
 
   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
     <property name="basePackage" value="com.isea533.mybatis.mapper,com.github.abel533.entity.mapper"/>
-  </bean>
-
-  <bean id="entityMapper" class="com.github.abel533.entity.EntityMapper" scope="prototype">
-    <constructor-arg ref="commonMapper"/>
-  </bean>
-
-  <bean id="sqlMapper" class="com.github.abel533.sql.SqlMapper" scope="prototype">
-    <constructor-arg ref="sqlSession"/>
   </bean>
 
   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">

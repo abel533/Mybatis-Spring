@@ -24,7 +24,7 @@
 
 package com.isea533.mybatis.service;
 
-import com.github.abel533.mapper.Mapper;
+import tk.mybatis.mapper.common.Mapper;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -22,7 +22,7 @@
         <!--  编译jdk版本  -->
         <jdk.version>1.6</jdk.version>
         <!--  依赖版本  -->
-        <mapper.version>3.0.0</mapper.version>
+        <mapper.version>3.1.0-SNAPSHOT</mapper.version>
         <pagehelper.version>3.7.4</pagehelper.version>
         <mysql.version>5.1.29</mysql.version>
         <spring.version>4.1.2.RELEASE</spring.version>
@@ -189,20 +189,9 @@
         </dependency>
         <!--通用Mapper-->
         <dependency>
-            <groupId>com.github.abel533</groupId>
+            <groupId>tk.mybatis</groupId>
             <artifactId>mapper</artifactId>
             <version>${mapper.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.abel533</groupId>
-            <artifactId>entitymapper</artifactId>
-            <version>1.0.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.github.abel533</groupId>
-                    <artifactId>mapper</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
     <dependencyManagement>
@@ -287,7 +276,7 @@
                         <version>${mysql.version}</version>
                     </dependency>
                     <dependency>
-                        <groupId>com.github.abel533</groupId>
+                        <groupId>tk.mybatis</groupId>
                         <artifactId>mapper</artifactId>
                         <version>${mapper.version}</version>
                     </dependency>
