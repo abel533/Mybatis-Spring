@@ -84,7 +84,7 @@
         <bean class="tk.mybatis.mapper.mapperhelper.MapperInterceptor">
           <property name="properties">
             <value>
-              mappers=com.github.abel533.mapper.Mapper
+              mappers=tk.mybatis.mapper.common.Mapper
               IDENTITY=MYSQL
               notEmpty=true
             </value>
@@ -95,7 +95,7 @@
   </bean>
 
   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-    <property name="basePackage" value="com.isea533.mybatis.mapper,com.github.abel533.entity.mapper"/>
+    <property name="basePackage" value="com.isea533.mybatis.mapper"/>
   </bean>
 
   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
