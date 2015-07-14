@@ -24,13 +24,13 @@
 
 package com.isea533.mybatis.test;
 
-import tk.mybatis.mapper.entity.Example;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.isea533.mybatis.mapper.CountryMapper;
 import com.isea533.mybatis.model.Country;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -49,6 +49,10 @@ public class PageMapperTest extends BasicTest {
         PageHelper.startPage(2,10);
         List<Country> countries = countryMapper.selectByExample(example);
         PageInfo<Country> pageInfo = new PageInfo<Country>(countries);
+        System.out.println(pageInfo.getTotal());
+
+        countries = countryMapper.selectByExample(example);
+        pageInfo = new PageInfo<Country>(countries);
         System.out.println(pageInfo.getTotal());
     }
 }
