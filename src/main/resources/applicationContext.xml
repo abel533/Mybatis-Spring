@@ -85,23 +85,17 @@
         </property>
     </bean>
 
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="addToConfig" value="true"/>
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.isea533.mybatis.mapper"/>
+        <property name="properties">
+            <value>
+                mappers=tk.mybatis.mapper.common.Mapper
+            </value>
+        </property>
     </bean>
 
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
         <constructor-arg index="0" ref="sqlSessionFactory"/>
-    </bean>
-
-    <bean class="tk.mybatis.mapper.mapperhelper.MapperHelper"
-          init-method="initMapper" scope="singleton" lazy-init="false">
-        <property name="mappers">
-            <array>
-                <value>${mapper.Mapper}</value>
-            </array>
-        </property>
-        <property name="sqlSessions" ref="sqlSession"/>
     </bean>
 
     <aop:aspectj-autoproxy/>
