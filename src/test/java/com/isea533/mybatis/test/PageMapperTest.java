@@ -28,6 +28,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.isea533.mybatis.mapper.CountryMapper;
 import com.isea533.mybatis.model.Country;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
@@ -39,11 +40,15 @@ import java.util.List;
  */
 public class PageMapperTest extends BasicTest {
 
+//    @Autowired
+//    private CountryMapper countryMapper;
+
     @Autowired
-    private CountryMapper countryMapper;
+    private SqlSession sqlSession;
 
     @Test
     public void test(){
+        CountryMapper countryMapper = sqlSession.getMapper(CountryMapper.class);
         Example example = new Example(Country.class);
         example.createCriteria().andGreaterThan("id",100);
         PageHelper.startPage(2,10);

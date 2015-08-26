@@ -81,15 +81,6 @@
                         </value>
                     </property>
                 </bean>
-                <bean class="tk.mybatis.mapper.mapperhelper.MapperOnceInterceptor">
-                    <property name="properties">
-                        <value>
-                            mappers=tk.mybatis.mapper.common.Mapper
-                            IDENTITY=MYSQL
-                            notEmpty=true
-                        </value>
-                    </property>
-                </bean>
             </array>
         </property>
     </bean>
@@ -101,6 +92,16 @@
 
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
         <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+    <bean class="tk.mybatis.mapper.mapperhelper.MapperHelper"
+          init-method="initMapper" scope="singleton" lazy-init="false">
+        <property name="mappers">
+            <array>
+                <value>${mapper.Mapper}</value>
+            </array>
+        </property>
+        <property name="sqlSessions" ref="sqlSession"/>
     </bean>
 
     <aop:aspectj-autoproxy/>
