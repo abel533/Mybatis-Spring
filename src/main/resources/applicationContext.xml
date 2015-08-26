@@ -71,18 +71,6 @@
             </array>
         </property>
         <property name="typeAliasesPackage" value="com.isea533.mybatis.model"/>
-        <property name="plugins">
-            <array>
-                <bean class="com.github.pagehelper.PageHelper">
-                    <property name="properties">
-                        <value>
-                            dialect=mysql
-                            reasonable=true
-                        </value>
-                    </property>
-                </bean>
-            </array>
-        </property>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -92,16 +80,6 @@
 
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
         <constructor-arg index="0" ref="sqlSessionFactory"/>
-    </bean>
-
-    <bean class="tk.mybatis.mapper.mapperhelper.MapperHelper"
-          init-method="initMapper" scope="singleton" lazy-init="false">
-        <property name="mappers">
-            <array>
-                <value>${mapper.Mapper}</value>
-            </array>
-        </property>
-        <property name="sqlSessions" ref="sqlSession"/>
     </bean>
 
     <aop:aspectj-autoproxy/>

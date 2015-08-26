@@ -19,11 +19,6 @@
         <!--  XML生成路径  -->
         <targetResourcesProject>${basedir}/src/main/resources</targetResourcesProject>
         <targetXMLPackage>mapper</targetXMLPackage>
-        <!--  编译jdk版本  -->
-        <jdk.version>1.6</jdk.version>
-        <!--  依赖版本  -->
-        <mapper.version>3.1.3</mapper.version>
-        <pagehelper.version>4.0.0</pagehelper.version>
         <mysql.version>5.1.29</mysql.version>
         <spring.version>4.1.2.RELEASE</spring.version>
     </properties>
@@ -181,18 +176,6 @@
             <scope>compile</scope>
             <optional>true</optional>
         </dependency>
-        <!--分页插件-->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-            <version>${pagehelper.version}</version>
-        </dependency>
-        <!--通用Mapper-->
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper</artifactId>
-            <version>${mapper.version}</version>
-        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -254,13 +237,6 @@
         </resources>
         <plugins>
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.3.2</version>
@@ -274,11 +250,6 @@
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
                         <version>${mysql.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>tk.mybatis</groupId>
-                        <artifactId>mapper</artifactId>
-                        <version>${mapper.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>

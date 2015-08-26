@@ -24,36 +24,24 @@
 
 package com.isea533.mybatis.service;
 
+import com.isea533.mybatis.mapper.CountryMapper;
 import com.isea533.mybatis.model.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.common.Mapper;
+
+import java.util.List;
 
 /**
  * @author liuzh
  */
 @Service
-public class DemoService extends BaseService<Country> {
+public class DemoService {
 
     @Autowired
-    private Mapper<Country> countryMapper;
+    private CountryMapper countryMapper;
 
-    public int save(Country country) {
-        if (country == null) {
-            throw new NullPointerException("保存的对象不能为空!");
-        }
-        if (country.getCountrycode() == null || country.getCountrycode().equals("")) {
-            throw new RuntimeException("国家代码不能为空!");
-        }
-        if (country.getCountryname() == null || country.getCountryname().equals("")) {
-            throw new RuntimeException("国家名称不能为空!");
-        }
-        return super.save(country);
-    }
-
-    public void test() {
-        int result = countryMapper.selectCount(null);
-        System.out.println(result);
+    public List<Country> selectAll() {
+        return countryMapper.selectAll();
     }
 
 }

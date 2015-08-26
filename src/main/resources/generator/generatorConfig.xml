@@ -34,10 +34,6 @@
   <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
     <property name="beginningDelimiter" value="`"/>
     <property name="endingDelimiter" value="`"/>
-    
-    <plugin type="${mapper.plugin}">
-      <property name="mappers" value="${mapper.Mapper}"/>
-    </plugin>
 
     <jdbcConnection driverClass="${jdbc.driverClass}"
                     connectionURL="${jdbc.url}"

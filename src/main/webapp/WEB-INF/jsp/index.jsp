@@ -112,7 +112,7 @@
                 <th><spring:message code="request.url"/></th>
                 <td>
                     <select name="url" id="url">
-                        <option value="test3">test3 - Mybatis分页插件PageHelper</option>
+                        <option value="test">test - selectAll</option>
                     </select>
                 </td>
             </tr>

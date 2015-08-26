@@ -49,12 +49,8 @@ public class DemoController {
     }
 
     @ResponseBody
-    @RequestMapping("test3")
-    public List<Country> requestTest7(
-            @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
-            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize
-    ) {
-        demoService.test();
-        return demoService.selectPage(pageNum, pageSize);
+    @RequestMapping("test")
+    public List<Country> selectAll() {
+        return demoService.selectAll();
     }
 }
