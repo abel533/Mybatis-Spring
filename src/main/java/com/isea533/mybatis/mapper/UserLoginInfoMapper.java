@@ -24,8 +24,8 @@
 
 package com.isea533.mybatis.mapper;
 
-import tk.mybatis.mapper.common.Mapper;
 import com.isea533.mybatis.model.UserLoginInfo;
+import com.isea533.mybatis.util.MyMapper;
 
-public interface UserLoginInfoMapper extends Mapper<UserLoginInfo> {
+public interface UserLoginInfoMapper extends MyMapper<UserLoginInfo> {
 }
