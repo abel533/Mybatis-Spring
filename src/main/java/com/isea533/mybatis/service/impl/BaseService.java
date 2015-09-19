@@ -22,39 +22,48 @@
  * THE SOFTWARE.
  */
 
-package com.isea533.mybatis.controller.demo;
+package com.isea533.mybatis.service.impl;
 
-import com.isea533.mybatis.model.Country;
-import com.isea533.mybatis.service.DemoService;
+import com.isea533.mybatis.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
 /**
- * @author liuzh
+ * Created by liuzh on 2014/12/11.
  */
-@Controller
-public class DemoController {
+@Service
+public abstract class BaseService<T> implements IService<T> {
 
     @Autowired
-    private DemoService demoService;
+    protected Mapper<T> mapper;
 
-    @RequestMapping(value = {"/", "index.html"})
-    public String index() {
-        return "index";
+    @Override
+    public T selectByKey(Object key) {
+        return mapper.selectByPrimaryKey(key);
     }
 
-    @ResponseBody
-    @RequestMapping("test3")
-    public List<Country> requestTest7(
-            @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
-            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize
-    ) {
-        demoService.test();
-        return demoService.selectPage(pageNum, pageSize);
+    public int save(T entity) {
+        return mapper.insert(entity);
     }
+
+    public int delete(Object key) {
+        return mapper.deleteByPrimaryKey(key);
+    }
+
+    public int updateAll(T entity) {
+        return mapper.updateByPrimaryKey(entity);
+    }
+
+    public int updateNotNull(T entity) {
+        return mapper.updateByPrimaryKeySelective(entity);
+    }
+
+    public List<T> selectByExample(Object example) {
+        return mapper.selectByExample(example);
+    }
+
+    //TODO 其他...
 }

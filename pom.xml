@@ -22,7 +22,7 @@
         <!--  编译jdk版本  -->
         <jdk.version>1.6</jdk.version>
         <!--  依赖版本  -->
-        <mapper.version>3.2.2-SNAPSHOT</mapper.version>
+        <mapper.version>3.2.2</mapper.version>
         <pagehelper.version>4.0.0</pagehelper.version>
         <mysql.version>5.1.29</mysql.version>
         <spring.version>4.1.2.RELEASE</spring.version>
@@ -50,14 +50,14 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
-            <artifactId>javax.servlet.jsp-api</artifactId>
-            <version>2.3.1</version>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>javax.servlet.jsp.jstl-api</artifactId>
-            <version>1.2.1</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>javax.ws.rs</groupId>
