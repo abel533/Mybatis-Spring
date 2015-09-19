@@ -10,6 +10,8 @@
 
 项目使用的hsqldb内存数据库，根据需要可以切换为其他支持的数据库
 
+##MyBatis工具网站:http://www.mybatis.tk
+
 ##推荐使用Mybatis通用Mapper3
 
 项目地址:https://github.com/abel533/Mapper
@@ -37,8 +39,6 @@ Mybatis专栏：
 作者博客：
 	http://my.oschina.net/flags/blog
 	http://blog.csdn.net/isea533
-	
-作者QQ： 120807756
 
 作者邮箱： abel533@gmail.com
 
