@@ -26,7 +26,6 @@ package com.isea533.mybatis.service.impl;
 
 import com.isea533.mybatis.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -34,7 +33,6 @@ import java.util.List;
 /**
  * Created by liuzh on 2014/12/11.
  */
-@Service
 public abstract class BaseService<T> implements IService<T> {
 
     @Autowired
