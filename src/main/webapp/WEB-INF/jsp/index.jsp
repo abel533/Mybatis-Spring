@@ -26,14 +26,14 @@
 <body>
 <div class="wrapper">
     <div class="middle">
-        <h1 style="padding: 50px 0 20px;">国家列表</h1>
+        <h1 style="padding: 50px 0 20px;">国家(地区)列表</h1>
 
         <form action="${pageContext.request.contextPath}/list" method="post">
             <table class="gridtable" style="width:100%;">
                 <tr>
-                    <th>国家名称：</th>
+                    <th>国家(地区)名称：</th>
                     <td><input type="text" name="countryname" value="${queryParam.countryname}"/></td>
-                    <th>国家代码：</th>
+                    <th>国家(地区)代码：</th>
                     <td><input type="text" name="countrycode" value="${queryParam.countrycode}"/></td>
                     <td rowspan="2"><input type="submit" value="查询"/></td>
                 </tr>
@@ -110,12 +110,12 @@
             <table class="gridtable" style="width:100%;">
                 <thead>
                 <tr>
-                    <th colspan="4">查询结果 - [<a href="${pageContext.request.contextPath}/view">新增国家</a>]</th>
+                    <th colspan="4">查询结果 - [<a href="${pageContext.request.contextPath}/view">新增国家(地区)</a>]</th>
                 </tr>
                 <tr>
                     <th>ID</th>
-                    <th>国家名</th>
-                    <th>国家代码</th>
+                    <th>国家(地区)名</th>
+                    <th>国家(地区)代码</th>
                     <th>操作</th>
                 </tr>
                 </thead>
