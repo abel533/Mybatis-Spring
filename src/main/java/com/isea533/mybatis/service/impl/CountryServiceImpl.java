@@ -1,7 +1,10 @@
 package com.isea533.mybatis.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.isea533.mybatis.mapper.CountryMapper;
 import com.isea533.mybatis.model.Country;
+import com.isea533.mybatis.model.CountryQueryModel;
 import com.isea533.mybatis.service.CountryService;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -34,4 +37,8 @@ public class CountryServiceImpl extends BaseService<Country> implements CountryS
         return selectByExample(example);
     }
 
+    @Override
+    public PageInfo<Country> selectByCountryQueryModel(CountryQueryModel queryModel) {
+        return ((CountryMapper) getMapper()).selectByCountryQueryModel(queryModel);
+    }
 }

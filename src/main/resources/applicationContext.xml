@@ -74,10 +74,14 @@
         <property name="plugins">
             <array>
                 <bean class="com.github.pagehelper.PageHelper">
+                    <!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
                     <property name="properties">
                         <value>
                             dialect=mysql
                             reasonable=true
+                            supportMethodsArguments=true
+                            returnPageInfo=check
+                            params=count=countSql
                         </value>
                     </property>
                 </bean>

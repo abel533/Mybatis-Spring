@@ -22,50 +22,41 @@
  * THE SOFTWARE.
  */
 
-package com.isea533.mybatis.service.impl;
+package com.isea533.mybatis.model;
 
-import com.isea533.mybatis.service.IService;
-import org.springframework.beans.factory.annotation.Autowired;
-import tk.mybatis.mapper.common.Mapper;
+public class CountryQueryModel extends QueryModel {
 
-import java.util.List;
+    private Country country;
 
-/**
- * Created by liuzh on 2014/12/11.
- */
-public abstract class BaseService<T> implements IService<T> {
-
-    @Autowired
-    protected Mapper<T> mapper;
-
-    public Mapper<T> getMapper() {
-        return mapper;
+    public CountryQueryModel() {
+        this(new Country());
     }
 
-    @Override
-    public T selectByKey(Object key) {
-        return mapper.selectByPrimaryKey(key);
+    public CountryQueryModel(Country country) {
+        this.country = country;
     }
 
-    public int save(T entity) {
-        return mapper.insert(entity);
+    public Integer getId() {
+        return country.getId();
     }
 
-    public int delete(Object key) {
-        return mapper.deleteByPrimaryKey(key);
+    public void setId(Integer id) {
+        country.setId(id);
     }
 
-    public int updateAll(T entity) {
-        return mapper.updateByPrimaryKey(entity);
+    public String getCountrycode() {
+        return country.getCountrycode();
     }
 
-    public int updateNotNull(T entity) {
-        return mapper.updateByPrimaryKeySelective(entity);
+    public void setCountrycode(String countrycode) {
+        country.setCountrycode(countrycode);
     }
 
-    public List<T> selectByExample(Object example) {
-        return mapper.selectByExample(example);
+    public String getCountryname() {
+        return country.getCountryname();
     }
 
-    //TODO 其他...
+    public void setCountryname(String countryname) {
+        country.setCountryname(countryname);
+    }
 }
