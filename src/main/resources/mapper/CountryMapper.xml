@@ -7,7 +7,4 @@
     <select id="selectById" resultType="com.isea533.mybatis.model.Country">
       select * from country where id = #{id}
     </select>
-    <select id="selectAll" resultType="com.isea533.mybatis.model.Country">
-      select * from country
-    </select>
 </mapper>
