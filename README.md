@@ -10,15 +10,16 @@
 
 项目使用的hsqldb内存数据库，根据需要可以切换为其他支持的数据库
 
-##MyBatis工具网站:http://www.mybatis.tk
+##MyBatis工具
+###http://www.mybatis.tk
 
 ##推荐使用Mybatis通用Mapper3
 
-项目地址:https://github.com/abel533/Mapper
+###https://github.com/abel533/Mapper
 
 ##推荐使用Mybatis分页插件PageHelper
 
-https://github.com/pagehelper/Mybatis-PageHelper
+###https://github.com/pagehelper/Mybatis-PageHelper
 
 ##作者信息
 
