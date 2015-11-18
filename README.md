@@ -26,6 +26,6 @@
 
 - 作者博客：http://blog.csdn.net/isea533
 
-- 作者邮箱： abel533@gmail.com
+- 作者邮箱：abel533@gmail.com
 
 - Mybatis工具群： 211286137 (Mybatis相关工具插件等等)
