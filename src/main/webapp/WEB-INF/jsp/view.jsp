@@ -7,7 +7,7 @@
 <body style="margin-top:50px;overflow: hidden;">
 <form action="${pageContext.request.contextPath}/save" method="post">
     <input type="hidden" name="id" value="${country.id}"/>
-    <table class="gridtable" style="width:600px;">
+    <table class="gridtable" style="width:800px;">
         <tr>
             <th colspan="5">国家(地区)信息 - [<a href="${pageContext.request.contextPath}/list">返回</a>]</th>
         </tr>

@@ -10,6 +10,10 @@
 
 项目使用的mysql数据库，根据需要可以切换为其他数据库
 
+##Spring Boot集成MyBatis的基础项目
+
+###https://github.com/abel533/MyBatis-Spring-Boot
+
 ##MyBatis工具
 
 ###http://www.mybatis.tk
