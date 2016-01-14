@@ -24,18 +24,9 @@
 
 package com.isea533.mybatis.mapper;
 
-import com.github.pagehelper.PageInfo;
 import com.isea533.mybatis.model.Country;
-import com.isea533.mybatis.model.CountryQueryModel;
 import com.isea533.mybatis.util.MyMapper;
 
 public interface CountryMapper extends MyMapper<Country> {
 
-    /**
-     * 分页查询
-     *
-     * @param queryModel
-     * @return
-     */
-    PageInfo<Country> selectByCountryQueryModel(CountryQueryModel queryModel);
 }

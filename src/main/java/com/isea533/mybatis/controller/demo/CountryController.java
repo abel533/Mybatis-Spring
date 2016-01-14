@@ -2,7 +2,6 @@ package com.isea533.mybatis.controller.demo;
 
 import com.github.pagehelper.PageInfo;
 import com.isea533.mybatis.model.Country;
-import com.isea533.mybatis.model.CountryQueryModel;
 import com.isea533.mybatis.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,24 +36,6 @@ public class CountryController {
         result.addObject("queryParam", country);
         result.addObject("page", page);
         result.addObject("rows", rows);
-        return result;
-    }
-
-    /**
-     * 测试pageinfo，参数必须包含pageNum和pageSize
-     * <p/>
-     * 这个方法以及调用的相关方法看起来可能很难理解，如果不理解，就不要使用这种方式!
-     * <p/>
-     * 例如http://[baseurl]/pageInfo?pageNum=1&pageSize=20&countryname=Ch
-     *
-     * @param queryModel
-     * @return
-     */
-    @RequestMapping(value = "pageInfo", produces = "application/json")
-    public ModelAndView pageInfo(CountryQueryModel queryModel) {
-        ModelAndView result = new ModelAndView();
-        PageInfo<Country> pageInfo = countryService.selectByCountryQueryModel(queryModel);
-        result.addObject("pageInfo", pageInfo);
         return result;
     }
 

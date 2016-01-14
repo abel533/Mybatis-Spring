@@ -80,8 +80,8 @@
                             dialect=mysql
                             reasonable=true
                             supportMethodsArguments=true
-                            returnPageInfo=check
                             params=count=countSql
+                            autoRuntimeDialect=true
                         </value>
                     </property>
                 </bean>
