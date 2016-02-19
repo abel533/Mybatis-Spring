@@ -22,11 +22,12 @@
         <!--  编译jdk版本  -->
         <jdk.version>1.6</jdk.version>
         <!--  依赖版本  -->
-        <mybatis.version>3.3.0</mybatis.version>
-        <mapper.version>3.3.4</mapper.version>
+        <mybatis.version>3.3.1</mybatis.version>
+        <mapper.version>3.3.6-SNAPSHOT</mapper.version>
         <pagehelper.version>4.1.1</pagehelper.version>
         <mysql.version>5.1.29</mysql.version>
         <spring.version>4.1.2.RELEASE</spring.version>
+        <mybatis.spring.version>1.2.3</mybatis.spring.version>
     </properties>
 
     <dependencies>
@@ -172,7 +173,7 @@
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
-            <version>1.2.3</version>
+            <version>${mybatis.spring.version}</version>
         </dependency>
         <!-- Mybatis Generator -->
         <dependency>
