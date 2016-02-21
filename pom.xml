@@ -23,11 +23,11 @@
         <jdk.version>1.6</jdk.version>
         <!--  依赖版本  -->
         <mybatis.version>3.3.1</mybatis.version>
-        <mapper.version>3.3.6-SNAPSHOT</mapper.version>
+        <mapper.version>3.3.6</mapper.version>
         <pagehelper.version>4.1.1</pagehelper.version>
         <mysql.version>5.1.29</mysql.version>
         <spring.version>4.1.2.RELEASE</spring.version>
-        <mybatis.spring.version>1.2.3</mybatis.spring.version>
+        <mybatis.spring.version>1.2.4</mybatis.spring.version>
     </properties>
 
     <dependencies>
