@@ -25,7 +25,6 @@
         <mybatis.version>3.3.1</mybatis.version>
         <mapper.version>3.3.6</mapper.version>
         <pagehelper.version>4.1.4</pagehelper.version>
-        <mysql.version>5.1.29</mysql.version>
         <spring.version>4.1.2.RELEASE</spring.version>
         <mybatis.spring.version>1.2.4</mybatis.spring.version>
     </properties>
@@ -151,11 +150,13 @@
             <version>1.3.1</version>
         </dependency>
 
-        <!--mysql-->
+        <!-- http://mvnrepository.com/artifact/com.oracle/ojdbc14 -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc14</artifactId>
+            <version>10.2.0.4.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ojdbc14-10.2.0.4.0.jar</systemPath>
         </dependency>
         <!--druid-->
         <dependency>
@@ -273,9 +274,9 @@
                 </configuration>
                 <dependencies>
                     <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>${mysql.version}</version>
+                        <groupId>com.oracle</groupId>
+                        <artifactId>ojdbc14</artifactId>
+                        <version>10.2.0.4.0</version>
                     </dependency>
                     <dependency>
                         <groupId>tk.mybatis</groupId>

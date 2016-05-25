@@ -24,7 +24,6 @@
 
 package com.isea533.mybatis.model;
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,8 +33,7 @@ public class Country {
      * 主键
      */
     @Id
-    @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select SEQ_COUNTRY.nextval from dual")
     private Integer id;
 
     /**
