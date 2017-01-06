@@ -14,8 +14,8 @@
         <targetProject>${basedir}/src/main/java</targetProject>
         <!--  依赖版本  -->
         <mybatis.version>3.3.0</mybatis.version>
-        <mapper.version>3.3.0</mapper.version>
-        <pagehelper.version>4.0.3</pagehelper.version>
+        <mapper.version>3.3.9</mapper.version>
+        <pagehelper.version>5.0.0</pagehelper.version>
         <spring.version>3.2.12.RELEASE</spring.version>
     </properties>
 
