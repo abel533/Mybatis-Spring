@@ -1,8 +1,8 @@
-# SSM集成的基础项目，项目使用Maven管理
+#SSM集成的基础项目，项目使用Maven管理
 
-# MyBatis3.3.0
+#MyBatis3.3.0
 
-# Spring[MVC]4.1.2.RELEASE
+#Spring[MVC]4.1.2.RELEASE
 
 项目使用Spring4.1.2.RELEASE + SpringMVC4.1.2.RELEASE + Mybatis3.3.0
 
@@ -42,28 +42,36 @@
 - 原来的 `dialect` 变成了 `helperDialect`，这是基于 PageHelper 方式的分页
 - 具体变化看文档
 
-## Spring Boot集成MyBatis的基础项目
+## 新书《MyBatis 从入门到精通》
 
-### https://github.com/abel533/MyBatis-Spring-Boot
+![MyBatis 从入门到精通](https://github.com/mybatis-book/book/raw/master/book.png)
 
-## MyBatis工具
+预售地址：[京东](https://item.jd.com/12103309.html)，[当当](http://product.dangdang.com/25098208.html)，[亚马逊](https://www.amazon.cn/MyBatis从入门到精通-刘增辉/dp/B072RC11DM/ref=sr_1_18?ie=UTF8&qid=1498007125&sr=8-18&keywords=mybatis)
 
-### http://www.mybatis.tk
+CSDN博客：http://blog.csdn.net/isea533/article/details/73555400
 
-## 推荐使用Mybatis通用Mapper3
+GitHub项目：https://github.com/mybatis-book/book
 
-### https://github.com/abel533/Mapper
+##Spring Boot集成MyBatis的基础项目
 
-## 推荐使用Mybatis分页插件PageHelper
+###https://github.com/abel533/MyBatis-Spring-Boot
 
-### https://github.com/pagehelper/Mybatis-PageHelper
+##MyBatis工具
 
-## 作者信息
+###http://www.mybatis.tk
+
+##推荐使用Mybatis通用Mapper3
+
+###https://github.com/abel533/Mapper
+
+##推荐使用Mybatis分页插件PageHelper
+
+###https://github.com/pagehelper/Mybatis-PageHelper
+
+##作者信息
 
 - 作者博客：http://blog.csdn.net/isea533
 
 - 作者邮箱：abel533@gmail.com
 
-- Mybatis工具群（推荐）： <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=7c2f018e4cddc7d4aad04fc312b2d69361a0a896a4f59219a7914953a57bffc2"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Mybatis工具群(2)" title="Mybatis工具群(2)"></a>
-
-- Mybatis工具群（2000 人已满）： <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=29e4cce8ac3c65d14a1dc40c9ba5c8e71304f143f3ad759ac0b05146e0952044"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Mybatis工具" title="Mybatis工具"></a>
+- Mybatis工具群： <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=7c2f018e4cddc7d4aad04fc312b2d69361a0a896a4f59219a7914953a57bffc2"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Mybatis工具群" title="Mybatis工具群"></a>
