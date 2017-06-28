@@ -2,6 +2,8 @@ package com.isea533.mybatis.controller.demo;
 
 import com.github.pagehelper.PageInfo;
 import com.isea533.mybatis.model.Country;
+import com.isea533.mybatis.model.Order;
+import com.isea533.mybatis.model.OrderSort;
 import com.isea533.mybatis.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,24 @@ public class CountryController {
         ModelAndView result = new ModelAndView(page_list);
         List<Country> countryList = countryService.selectByCountry(country, page, rows);
         result.addObject("pageInfo", new PageInfo<Country>(countryList));
+        result.addObject("queryParam", country);
+        result.addObject("page", page);
+        result.addObject("rows", rows);
+        return result;
+    }
+
+    @RequestMapping(value = "orderlist")
+    public ModelAndView getOrderList(Country country,
+                                @RequestParam(required = false, defaultValue = "1") int page,
+                                @RequestParam(required = false, defaultValue = "10") int rows) {
+        ModelAndView result = new ModelAndView(page_list);
+
+        //按照countryname降序排序
+        Order order = new Order();
+        order.addOrder("countryname", OrderSort.DESC);
+
+        List<Country> countryList = countryService.selectCountryByParam(country, order,page, rows);
+        result.addObject("pageOrderInfo", new PageInfo<Country>(countryList));
         result.addObject("queryParam", country);
         result.addObject("page", page);
         result.addObject("rows", rows);

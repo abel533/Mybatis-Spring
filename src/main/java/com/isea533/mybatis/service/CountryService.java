@@ -1,6 +1,8 @@
 package com.isea533.mybatis.service;
 
 import com.isea533.mybatis.model.Country;
+import com.isea533.mybatis.model.Order;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,5 +21,8 @@ public interface CountryService extends IService<Country> {
      * @return
      */
     List<Country> selectByCountry(Country country, int page, int rows);
+
+    List selectCountryByParam(@Param("pojo") Country pojo,
+                           @Param("orderObj") Order order, int page, int rows);
 
 }

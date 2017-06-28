@@ -25,8 +25,14 @@
 package com.isea533.mybatis.mapper;
 
 import com.isea533.mybatis.model.Country;
+import com.isea533.mybatis.model.Order;
 import com.isea533.mybatis.util.MyMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface CountryMapper extends MyMapper<Country> {
 
+    List selectListByParam(@Param("pojo") Country pojo,
+                           @Param("orderObj") Order order, int page, int rows);
 }

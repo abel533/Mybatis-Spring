@@ -19,6 +19,17 @@
             $('#list').click(function () {
                 $('.pageDetail').toggleClass('show');
             });
+            $("#DescSearch").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "${pageContext.request.contextPath}/orderlist",
+                    data: $("#forminfo").serialize(),
+                    dataType:"json",
+                    success:function(data) {
+                        window.location.href ="${pageContext.request.contextPath}/orderlist";
+                    }
+                });
+            });
         });
 
     </script>
@@ -28,14 +39,18 @@
     <div class="middle">
         <h1 style="padding: 50px 0 20px;">国家(地区)列表</h1>
 
-        <form action="${pageContext.request.contextPath}/list" method="post">
+        <form id="forminfo" action="${pageContext.request.contextPath}/list" method="post">
             <table class="gridtable" style="width:100%;">
                 <tr>
                     <th>国家(地区)名称：</th>
                     <td><input type="text" name="countryname" value="${queryParam.countryname}"/></td>
                     <th>国家(地区)代码：</th>
                     <td><input type="text" name="countrycode" value="${queryParam.countrycode}"/></td>
-                    <td rowspan="2"><input type="submit" value="查询"/></td>
+                    <td rowspan="2"><input type="submit" value="查询"/>
+                        <br>
+                        <button id="DescSearch">倒序查询</button>
+                    </td>
+
                 </tr>
                 <tr>
                     <th>页码：</th>
@@ -153,6 +168,56 @@
                     <c:if test="${pageInfo.hasNextPage}">
                         <td>
                             <a href="${pageContext.request.contextPath}/list?page=${pageInfo.nextPage}&rows=${pageInfo.pageSize}&countryname=${queryParam.countryname}&countrycode=${queryParam.countrycode}">下一页</a>
+                        </td>
+                    </c:if>
+                </tr>
+            </table>
+            <table class="gridtable" style="width:100%;">
+                <thead>
+                <tr>
+                    <th colspan="4">排序后查询结果 - [<a href="${pageContext.request.contextPath}/view">新增国家(地区)</a>]</th>
+                </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>国家(地区)名</th>
+                    <th>国家(地区)代码</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${pageOrderInfo.list}" var="country">
+                    <tr>
+                        <td>${country.id}</td>
+                        <td>${country.countryname}</td>
+                        <td>${country.countrycode}</td>
+                        <td style="text-align:center;">[<a
+                                href="${pageContext.request.contextPath}/view?id=${country.id}">修改</a>] -
+                            [<a href="${pageContext.request.contextPath}/delete?id=${country.id}">删除</a>]
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+            <table class="gridtable" style="width:100%;text-align: center;">
+                <tr>
+                    <c:if test="${pageOrderInfo.hasPreviousPage}">
+                        <td>
+                            <a href="${pageContext.request.contextPath}/orderlist?page=${pageOrderInfo.prePage}&rows=${pageOrderInfo.pageSize}&countryname=${queryParam.countryname}&countrycode=${queryParam.countrycode}">前一页</a>
+                        </td>
+                    </c:if>
+                    <c:forEach items="${pageOrderInfo.navigatepageNums}" var="nav">
+                        <c:if test="${nav == pageOrderInfo.pageNum}">
+                            <td style="font-weight: bold;">${nav}</td>
+                        </c:if>
+                        <c:if test="${nav != pageOrderInfo.pageNum}">
+                            <td>
+                                <a href="${pageContext.request.contextPath}/orderlist?page=${nav}&rows=${pageOrderInfo.pageSize}&countryname=${queryParam.countryname}&countrycode=${queryParam.countrycode}">${nav}</a>
+                            </td>
+                        </c:if>
+                    </c:forEach>
+                    <c:if test="${pageOrderInfo.hasNextPage}">
+                        <td>
+                            <a href="${pageContext.request.contextPath}/orderlist?page=${pageOrderInfo.nextPage}&rows=${pageOrderInfo.pageSize}&countryname=${queryParam.countryname}&countrycode=${queryParam.countrycode}">下一页</a>
                         </td>
                     </c:if>
                 </tr>
