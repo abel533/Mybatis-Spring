@@ -1,8 +1,8 @@
-#SSM集成的基础项目，项目使用Maven管理
+# SSM集成的基础项目，项目使用Maven管理
 
-#MyBatis3.3.0
+# MyBatis3.3.0
 
-#Spring[MVC]3.2.12
+# Spring[MVC]3.2.12
 
 项目使用Spring3.2.12 + SpringMVC3.2.12 + Mybatis3.3.0
 
@@ -42,19 +42,19 @@
 - 原来的 `dialect` 变成了 `helperDialect`，这是基于 PageHelper 方式的分页
 - 具体变化看文档
 
-##MyBatis工具
+## MyBatis工具
 
-###http://www.mybatis.tk
+### http://www.mybatis.tk
 
-##推荐使用Mybatis通用Mapper
+## 推荐使用Mybatis通用Mapper
 
-###https://github.com/abel533/Mapper
+### https://github.com/abel533/Mapper
 
-##推荐使用Mybatis分页插件
+## 推荐使用Mybatis分页插件
 
-###https://github.com/pagehelper/Mybatis-PageHelper
+### https://github.com/pagehelper/Mybatis-PageHelper
 
-##作者信息
+## 作者信息
 
 - 作者博客：http://blog.csdn.net/isea533
 
