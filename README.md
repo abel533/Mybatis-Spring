@@ -1,10 +1,10 @@
-#SSM集成的基础项目，项目使用Maven管理
+# SSM集成的基础项目，项目使用Maven管理
 
-#MyBatis3.3.0
+# MyBatis3.3.0
 
-#Spring[MVC]4.1.2.RELEASE
+# Spring[MVC]4.1.2.RELEASE
 
-#Oracle
+# Oracle
 
 项目使用Spring4.1.2.RELEASE + SpringMVC4.1.2.RELEASE + Mybatis3.3.0 + Oracle
 
@@ -12,7 +12,7 @@
 
 项目使用的Oracle数据库，根据需要可以切换为其他数据库
 
-##注意主键
+## 注意主键
 
 ```java
 public class Country {
@@ -26,7 +26,7 @@ public class Country {
     //省略其他
 ```
 
-##注意通用Mapper配置
+## 注意通用Mapper配置
 ```xml
 <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
     <property name="basePackage" value="com.isea533.mybatis.mapper"/>
@@ -42,7 +42,7 @@ public class Country {
 ```
 主要是`ORDER=BEFORE`，这个可以保证序列先执行
 
-##新增国家输出的日志
+## 新增国家输出的日志
 
 ```
 DEBUG [http-apr-8091-exec-4] - JDBC Connection [com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl@43daa112] will be managed by Spring
@@ -53,7 +53,7 @@ DEBUG [http-apr-8091-exec-4] - ==> Parameters: 200(Integer), 测试(String), CS(
 DEBUG [http-apr-8091-exec-4] - <==    Updates: 1
 ```
 
-##如何运行本项目
+## 如何运行本项目
 
 先通过项目sql文件下的sql创建数据库的基本环境，如果没有表空间，就先执行**创建表空间和用户.sql**
 
@@ -70,26 +70,26 @@ jdbc.password = mybatis
 
 保持上面的配置和自己的数据库一致即可。
 
-##Spring Boot集成MyBatis的基础项目
+## Spring Boot集成MyBatis的基础项目
 
-###https://github.com/abel533/MyBatis-Spring-Boot
+### https://github.com/abel533/MyBatis-Spring-Boot
 
-##MyBatis工具
+## MyBatis工具
 
-###http://www.mybatis.tk
+### http://www.mybatis.tk
 
-##推荐使用Mybatis通用Mapper3
+## 推荐使用Mybatis通用Mapper3
 
-###https://github.com/abel533/Mapper
+### https://github.com/abel533/Mapper
 
-##推荐使用Mybatis分页插件PageHelper
+## 推荐使用Mybatis分页插件PageHelper
 
-###https://github.com/pagehelper/Mybatis-PageHelper
+### https://github.com/pagehelper/Mybatis-PageHelper
 
-##作者信息
+## 作者信息
 
 - 作者博客：http://blog.csdn.net/isea533
 
 - 作者邮箱：abel533@gmail.com
 
-- Mybatis工具群： 211286137 (Mybatis相关工具插件等等)
+- Mybatis工具群： <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=7c2f018e4cddc7d4aad04fc312b2d69361a0a896a4f59219a7914953a57bffc2"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Mybatis工具群" title="Mybatis工具群"></a>
