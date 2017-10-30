@@ -29,30 +29,32 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-  <properties resource="config.properties"/>
+    <properties resource="config.properties"/>
 
-  <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
-    <property name="beginningDelimiter" value="`"/>
-    <property name="endingDelimiter" value="`"/>
-    
-    <plugin type="${mapper.plugin}">
-      <property name="mappers" value="${mapper.Mapper}"/>
-    </plugin>
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
 
-    <jdbcConnection driverClass="${jdbc.driverClass}"
-                    connectionURL="${jdbc.url}"
-                    userId="${jdbc.user}"
-                    password="${jdbc.password}">
-    </jdbcConnection>
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <property name="caseSensitive" value="true"/>
+        </plugin>
 
-    <javaModelGenerator targetPackage="${targetModelPackage}" targetProject="${targetJavaProject}"/>
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.user}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
 
-    <sqlMapGenerator targetPackage="${targetXMLPackage}"  targetProject="${targetResourcesProject}"/>
+        <javaModelGenerator targetPackage="${targetModelPackage}" targetProject="${targetJavaProject}"/>
 
-    <javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}" type="XMLMAPPER" />
+        <sqlMapGenerator targetPackage="${targetXMLPackage}" targetProject="${targetResourcesProject}"/>
 
-    <table tableName="%" >
-      <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-    </table>
-  </context>
+        <javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}"
+                             type="XMLMAPPER"/>
+
+        <table tableName="%">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+    </context>
 </generatorConfiguration>
