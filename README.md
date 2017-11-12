@@ -92,4 +92,4 @@ jdbc.password = mybatis
 
 - 作者邮箱：abel533@gmail.com
 
-- Mybatis工具群： 211286137 (Mybatis相关工具插件等等)
+- 如需加群，请通过 http://mybatis.tk 首页按钮加群。
