@@ -11,19 +11,11 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--  MyBatis Generator  -->
-        <!--  Java接口和实体类  -->
-        <targetJavaProject>${basedir}/src/main/java</targetJavaProject>
-        <targetMapperPackage>com.isea533.mybatis.mapper</targetMapperPackage>
-        <targetModelPackage>com.isea533.mybatis.model</targetModelPackage>
-        <!--  XML生成路径  -->
-        <targetResourcesProject>${basedir}/src/main/resources</targetResourcesProject>
-        <targetXMLPackage>mapper</targetXMLPackage>
         <!--  编译jdk版本  -->
         <jdk.version>1.6</jdk.version>
         <!--  依赖版本  -->
-        <mybatis.version>3.3.1</mybatis.version>
-        <mapper.version>3.4.5-SNAPSHOT</mapper.version>
+        <mybatis.version>3.4.6</mybatis.version>
+        <mapper.version>4.0.0</mapper.version>
         <pagehelper.version>5.0.0</pagehelper.version>
         <mysql.version>5.1.29</mysql.version>
         <spring.version>4.1.2.RELEASE</spring.version>
@@ -265,7 +257,7 @@
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.3.2</version>
+                <version>1.3.6</version>
                 <configuration>
                     <configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
                     <overwrite>true</overwrite>
