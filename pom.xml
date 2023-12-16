@@ -203,7 +203,7 @@
         <repository>
             <id>nexus</id>
             <name>local private nexus</name>
-            <url>http://maven.oschina.net/content/groups/public/</url>
+            <url>https://maven.oschina.net/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -214,7 +214,7 @@
         <repository>
             <id>sonatype-nexus-releases</id>
             <name>Sonatype Nexus Releases</name>
-            <url>http://oss.sonatype.org/content/repositories/releases</url>
+            <url>https://oss.sonatype.org/content/repositories/releases</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -225,7 +225,7 @@
         <repository>
             <id>sonatype-nexus-snapshots</id>
             <name>Sonatype Nexus Snapshots</name>
-            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
